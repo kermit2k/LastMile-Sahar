@@ -1,0 +1,50 @@
+<template>
+
+        <!-- Back Button -->
+        <c-aa-new-booking-back-button data-id='backButton'></c-aa-new-booking-back-button>
+        <!-- Back Button -->
+
+        <!-- Header -->
+        <div class='headLine'>{appointmentAssistanceSlotSelectionTitle}</div>
+        <!-- Header -->
+    
+        <template if:false = {show_InvalidPage}>
+                <template if:true = {show_RescheduleAppointmentScreen}>
+                        <c-aa-reschedule-appointment
+                                showexactarrivaltime = {ArrivalWindowMethod}
+                                serviceappointmentobject = {serviceAppointmentObject}
+                                oneventname = {onButtonClick}
+                                shownoofdaysbeforeafterweek = {noOfDaysBeforeAfterWeek}
+                                serviceresourceobj = {serviceResourceObject}
+                                timeslotobject = {timeSlotDateWise}
+                                ondateselection = {onDateSelected}
+                                ongetslotexecuted = {handleGetSlotQueryForSelectedDate}
+                                selecteddate = {selectedDate}
+                                maxvaliddate = {maxValidCalendarDate}
+                                schedulepolicy = {schedulingPolicyId}
+                                onserviceappointmentupdate = {onServiceAppointmentUpdate}
+                                inflowmode = {inFlowMode}
+                                worktypename = {selectedService}
+                                page-title = {pageTitle}
+                                worktype-displayname={selectedService}
+                                showdataspinner = {showDataSpinner}
+                        ></c-aa-reschedule-appointment>
+                </template>
+        </template>
+
+        <!-- SPINNER -->
+        <template if:true = {showDataSpinner}>
+                <div class="spinnerHolder">
+                        <lightning-spinner alternativetext="Loading" variant="brand" size="large">
+                        </lightning-spinner>
+                </div>
+        </template>
+        <!-- SPINNER -->
+    
+            <!-- ********   IF PAGE IS INVALID, SHOW THANK YOU MESSAGE ******************  -->
+        <template if:true = {show_InvalidPage}>
+                <c-aa-invalid-page isineditormode = {show_InvalidPage} >     
+                </c-aa-invalid-page>
+        </template>
+
+</template>        

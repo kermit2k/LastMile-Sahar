@@ -1,0 +1,121 @@
+<template>
+
+    <template if:false = {showCalenderInFullScreen}>
+        <div data-id="reschedulePage">
+
+            <!-- Header -->
+            <template if:false={inFlowMode}>
+                <!-- Back button and header shown only if it is not in flow mode-->
+                <lightning-button variant="base" icon-name="utility:chevronleft" label={backButtonTitle} title={backButtonTitle} onclick={handleBackButton} class="backButton slds-m-left_x-small"></lightning-button>
+                <h1 class="headline">{LABELS.Appointment_ReBooking_select_new_date_to_reschedule}</h1>
+            </template>
+            <!-- Header -->
+
+            <!-- Details -->
+            <template if:false={inFlowMode}>
+                <div class="divInfo">
+                    <h2 class="divHeadline">{LABELS.Appointment_ReBooking_current_appointment_msg}</h2>
+                    <div class="headlineDate">{headlineDate}</div>
+                    <div class="headlineDate">{headlineTime}</div>
+                    <div class="WorkTypeName">{WorkTypeName}</div>
+                </div>
+            </template>
+            <template if:true={inFlowMode}>
+                <div class="divInfo">
+                    <h2 class="divHeadline">{LABELS.AppointmentAssistance_confirmation_service_requested}</h2>
+                    <div class="WorkTypeName">{worktypeDisplayname}</div>
+                </div>
+            </template>
+            <!-- Details -->
+
+            <div class="calendarView" data-id="calendar">
+                <c-aa-rebooking-calendar class="calendarInfo"
+                    ondateselection = {onDateSelected}
+                    onweekchangeevent = {onWeekChangeEvent}
+                    selecteddate = {selectedDate} 
+                    maxvaliddate = {maxValidCalendarDate}
+                    nonavailabledates = {nonAvailableDateArray} >
+                </c-aa-rebooking-calendar>
+            </div>
+
+            <c-aa-time-slot-page 
+                showexactarrivaltime = {showExactArrivalTime} 
+                shownoofdaysbeforeafterweek = {noOfDaysBeforeAfterWeek}
+                selecteddate = {selectedDate}
+                maxvaliddate = {maxValidCalendarDate}
+                onslotselection = {onSlotSelection}
+                oncustomeventcalled = {onCustomEventCalled}
+                timeslotobject = {timeSlotObject}>
+            </c-aa-time-slot-page >
+
+            <template if:true = {show_confirmBtnLayout}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open modal">
+                    <div class="" style="width:100%">
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            
+                            <lightning-layout horizontal-align="right">
+                                <lightning-layout-item alignment-bump="right" >
+                                    <template if:false={inFlowMode}>
+                                        <div class="acceptNewAptTitle">{LABELS.Appointment_ReBooking_new_appointment_msg}</div> 
+                                    </template>
+                                    <template if:true={inFlowMode}>
+                                        <div class="acceptNewAptTitle">{LABELS.Appointment_ReBooking_selected_appointment_msg}</div> 
+                                    </template>
+                                </lightning-layout-item>
+                                <lightning-layout-item alignment-bump="left" >
+                                    <div class="slds-current-color acceptNewAptClose">
+                                        <lightning-button-icon variant="bare" class="slds-size_medium" icon-name="utility:close"  
+                                                title="Cancel" onclick={handleConfirmBtnClose} >
+                                        </lightning-button-icon>
+                                    </div>
+                                </lightning-layout-item >
+                            </lightning-layout>
+            
+                            <div class="divInfo">
+                                <div class="headlineDate">{newAppointmentDate}</div>
+                                <div class="headlineDate">{newAppointmentTime}</div>
+                            </div>
+                
+                            <template if:false={inFlowMode}>
+                                <button title={LABELS.Appointment_ReBooking_accept_new_appointment_button} 
+                                        onclick={handleConfirm} class="slds-button slds-button_brand confirmBtn">
+                                {LABELS.Appointment_ReBooking_accept_new_appointment_button}
+                                </button>
+                            </template>
+                            <template if:true={inFlowMode}>
+                                <button title={LABELS.AppointmentAssistance_next_button_title} 
+                                        onclick={handleConfirm} class="slds-button slds-button_brand confirmBtn">
+                                {LABELS.AppointmentAssistance_next_button_title}
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+            
+            <!-- SPINNER -->
+            <template if:false={inFlowMode}>
+                <template if:true = {showDataSpinner}>
+                    <div class="spinnerHolder">
+                        <lightning-spinner alternativetext="Loading" variant="brand" size="large">
+                        </lightning-spinner>
+                    </div>
+                </template>
+            </template>
+            <!-- SPINNER -->
+
+        </div>
+    </template>
+
+    <template if:true = {showCalenderInFullScreen}>
+        <c-aa-rebooking-calendar class="calendarInfo"
+            ondateselection = {onDateSelected}
+            onscreenmode = {onScreenModeChange} 
+            weekview = {showCalenderInFullScreen}
+            selecteddate = {selectedDate} 
+            maxvaliddate = {maxValidCalendarDate} >
+        </c-aa-rebooking-calendar>
+    </template>
+    
+</template>

@@ -1,0 +1,41 @@
+.icon-header{
+    display: flex;
+    align-items:center;
+    margin-bottom: 10px;
+}
+.headLine{
+    color: rgb(0, 0, 0);
+    font-size: 28px;
+    letter-spacing: 0.36px;
+    margin-bottom: 24px;
+    font-family: var(--lwc-fontFamily);
+}
+.icon-container{
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px;
+}
+.blue-icon{
+    --sds-c-icon-color-foreground-default: #0070D2;
+    --sds-c-icon-color-background: #ffffff;
+}
+.prev-text{
+    color: #0070D2;
+    font-size: 16px;
+    line-height: 18px;
+    text-align: center;
+    vertical-align: middle;
+}
+.spinnerHolder{
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+}
+.slds-spinner {
+    position: fixed;
+}
+.slds-spinner_container {
+    position: fixed;
+}
